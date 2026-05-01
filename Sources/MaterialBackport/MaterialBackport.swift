@@ -7,14 +7,14 @@ import AppKit
 #endif
 
 public extension Backport where Content == Color {
-    /// A backport namespace entry for SwiftUI's `ultraThinMaterial` shape style.
+    /// A backport namespace entry for SwiftUI's `ultraThin` material.
     ///
-    /// Uses native `.ultraThinMaterial` on supported OS versions. On legacy
+    /// Uses native `Material.ultraThin` on supported OS versions. On legacy
     /// OS versions, falls back to platform background color with `0.08` opacity.
     ///
     /// - Returns: A shape style approximating SwiftUI ultra-thin material.
     @MainActor
-    var ultraThinMaterial: some ShapeStyle {
+    var ultraThin: some ShapeStyle {
         if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 10.0, visionOS 1.0, *) {
             return Material.ultraThin
         } else {
@@ -31,14 +31,25 @@ public extension Backport where Content == Color {
         }
     }
 
-    /// A backport namespace entry for SwiftUI's `thinMaterial` shape style.
+    /// A backport namespace entry for SwiftUI's `ultraThinMaterial` shape style.
     ///
-    /// Uses native `.thinMaterial` on supported OS versions. On legacy
+    /// Mirrors SwiftUI's `ShapeStyle.ultraThinMaterial` spelling and delegates
+    /// to ``ultraThin``.
+    ///
+    /// - Returns: A shape style approximating SwiftUI ultra-thin material.
+    @MainActor
+    var ultraThinMaterial: some ShapeStyle {
+        ultraThin
+    }
+
+    /// A backport namespace entry for SwiftUI's `thin` material.
+    ///
+    /// Uses native `Material.thin` on supported OS versions. On legacy
     /// OS versions, falls back to platform background color with `0.14` opacity.
     ///
     /// - Returns: A shape style approximating SwiftUI thin material.
     @MainActor
-    var thinMaterial: some ShapeStyle {
+    var thin: some ShapeStyle {
         if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 10.0, visionOS 1.0, *) {
             return Material.thin
         } else {
@@ -55,14 +66,25 @@ public extension Backport where Content == Color {
         }
     }
 
-    /// A backport namespace entry for SwiftUI's `regularMaterial` shape style.
+    /// A backport namespace entry for SwiftUI's `thinMaterial` shape style.
     ///
-    /// Uses native `.regularMaterial` on supported OS versions. On legacy
+    /// Mirrors SwiftUI's `ShapeStyle.thinMaterial` spelling and delegates to
+    /// ``thin``.
+    ///
+    /// - Returns: A shape style approximating SwiftUI thin material.
+    @MainActor
+    var thinMaterial: some ShapeStyle {
+        thin
+    }
+
+    /// A backport namespace entry for SwiftUI's `regular` material.
+    ///
+    /// Uses native `Material.regular` on supported OS versions. On legacy
     /// OS versions, falls back to platform background color with `0.20` opacity.
     ///
     /// - Returns: A shape style approximating SwiftUI regular material.
     @MainActor
-    var regularMaterial: some ShapeStyle {
+    var regular: some ShapeStyle {
         if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 10.0, visionOS 1.0, *) {
             return Material.regular
         } else {
@@ -79,14 +101,25 @@ public extension Backport where Content == Color {
         }
     }
 
-    /// A backport namespace entry for SwiftUI's `thickMaterial` shape style.
+    /// A backport namespace entry for SwiftUI's `regularMaterial` shape style.
     ///
-    /// Uses native `.thickMaterial` on supported OS versions. On legacy
+    /// Mirrors SwiftUI's `ShapeStyle.regularMaterial` spelling and delegates to
+    /// ``regular``.
+    ///
+    /// - Returns: A shape style approximating SwiftUI regular material.
+    @MainActor
+    var regularMaterial: some ShapeStyle {
+        regular
+    }
+
+    /// A backport namespace entry for SwiftUI's `thick` material.
+    ///
+    /// Uses native `Material.thick` on supported OS versions. On legacy
     /// OS versions, falls back to platform background color with `0.28` opacity.
     ///
     /// - Returns: A shape style approximating SwiftUI thick material.
     @MainActor
-    var thickMaterial: some ShapeStyle {
+    var thick: some ShapeStyle {
         if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 10.0, visionOS 1.0, *) {
             return Material.thick
         } else {
@@ -103,14 +136,25 @@ public extension Backport where Content == Color {
         }
     }
 
-    /// A backport namespace entry for SwiftUI's `ultraThickMaterial` shape style.
+    /// A backport namespace entry for SwiftUI's `thickMaterial` shape style.
     ///
-    /// Uses native `.ultraThickMaterial` on supported OS versions. On legacy
+    /// Mirrors SwiftUI's `ShapeStyle.thickMaterial` spelling and delegates to
+    /// ``thick``.
+    ///
+    /// - Returns: A shape style approximating SwiftUI thick material.
+    @MainActor
+    var thickMaterial: some ShapeStyle {
+        thick
+    }
+
+    /// A backport namespace entry for SwiftUI's `ultraThick` material.
+    ///
+    /// Uses native `Material.ultraThick` on supported OS versions. On legacy
     /// OS versions, falls back to platform background color with `0.36` opacity.
     ///
     /// - Returns: A shape style approximating SwiftUI ultra-thick material.
     @MainActor
-    var ultraThickMaterial: some ShapeStyle {
+    var ultraThick: some ShapeStyle {
         if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 10.0, visionOS 1.0, *) {
             return Material.ultraThick
         } else {
@@ -127,18 +171,29 @@ public extension Backport where Content == Color {
         }
     }
 
+    /// A backport namespace entry for SwiftUI's `ultraThickMaterial` shape style.
+    ///
+    /// Mirrors SwiftUI's `ShapeStyle.ultraThickMaterial` spelling and delegates
+    /// to ``ultraThick``.
+    ///
+    /// - Returns: A shape style approximating SwiftUI ultra-thick material.
+    @MainActor
+    var ultraThickMaterial: some ShapeStyle {
+        ultraThick
+    }
+
     /// A backport namespace entry for SwiftUI's `bar` material shape style.
     ///
-    /// Uses native `.bar` material on supported OS versions. On tvOS and
-    /// watchOS, where `.bar` is unavailable, falls back to ``regularMaterial``.
-    /// On legacy supported platforms, falls back to platform background color
-    /// with `0.24` opacity.
+    /// Uses native `Material.bar` on supported OS versions. On tvOS and watchOS,
+    /// where `Material.bar` is unavailable, falls back to ``regular``. On legacy
+    /// supported platforms, falls back to platform background color with `0.24`
+    /// opacity.
     ///
     /// - Returns: A shape style approximating SwiftUI bar material.
     @MainActor
     var bar: some ShapeStyle {
         #if os(tvOS) || os(watchOS)
-        return regularMaterial
+        return regular
         #else
         if #available(iOS 15.0, macOS 12.0, visionOS 1.0, *) {
             return Material.bar
