@@ -17,11 +17,14 @@ final class MaterialBackportTests: XCTestCase {
         _ = Color.backport.thickMaterial
         _ = Color.backport.ultraThickMaterial
         _ = Color.backport.bar
-        _ = Text("Hello").background(.backport.ultraThinMaterial)
-        _ = Text("Hello").background(.backport.thinMaterial)
-        _ = Text("Hello").background(.backport.regularMaterial)
-        _ = Text("Hello").background(.backport.thickMaterial)
-        _ = Text("Hello").background(.backport.ultraThickMaterial)
-        _ = Text("Hello").background(.backport.bar)
+
+        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *) {
+            _ = Text("Hello").background(.backport.ultraThinMaterial)
+            _ = Text("Hello").background(.backport.thinMaterial)
+            _ = Text("Hello").background(.backport.regularMaterial)
+            _ = Text("Hello").background(.backport.thickMaterial)
+            _ = Text("Hello").background(.backport.ultraThickMaterial)
+            _ = Text("Hello").background(.backport.bar)
+        }
     }
 }
