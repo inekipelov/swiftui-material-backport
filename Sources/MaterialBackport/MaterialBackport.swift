@@ -15,11 +15,13 @@ public extension Backport where Content == Color {
     /// - Returns: A shape style approximating SwiftUI ultra-thin material.
     @MainActor
     var ultraThinMaterial: some ShapeStyle {
-        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *) {
-            return .ultraThinMaterial
+        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 10.0, visionOS 1.0, *) {
+            return Material.ultraThin
         } else {
             let opacity = 0.08
-            #if canImport(UIKit)
+            #if os(tvOS) || os(watchOS)
+            return Color.gray.opacity(opacity)
+            #elseif canImport(UIKit)
             return Color(UIColor.systemBackground).opacity(opacity)
             #elseif canImport(AppKit)
             return Color(NSColor.windowBackgroundColor).opacity(opacity)
@@ -37,11 +39,13 @@ public extension Backport where Content == Color {
     /// - Returns: A shape style approximating SwiftUI thin material.
     @MainActor
     var thinMaterial: some ShapeStyle {
-        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *) {
-            return .thinMaterial
+        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 10.0, visionOS 1.0, *) {
+            return Material.thin
         } else {
             let opacity = 0.14
-            #if canImport(UIKit)
+            #if os(tvOS) || os(watchOS)
+            return Color.gray.opacity(opacity)
+            #elseif canImport(UIKit)
             return Color(UIColor.systemBackground).opacity(opacity)
             #elseif canImport(AppKit)
             return Color(NSColor.windowBackgroundColor).opacity(opacity)
@@ -59,11 +63,13 @@ public extension Backport where Content == Color {
     /// - Returns: A shape style approximating SwiftUI regular material.
     @MainActor
     var regularMaterial: some ShapeStyle {
-        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *) {
-            return .regularMaterial
+        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 10.0, visionOS 1.0, *) {
+            return Material.regular
         } else {
             let opacity = 0.20
-            #if canImport(UIKit)
+            #if os(tvOS) || os(watchOS)
+            return Color.gray.opacity(opacity)
+            #elseif canImport(UIKit)
             return Color(UIColor.systemBackground).opacity(opacity)
             #elseif canImport(AppKit)
             return Color(NSColor.windowBackgroundColor).opacity(opacity)
@@ -81,11 +87,13 @@ public extension Backport where Content == Color {
     /// - Returns: A shape style approximating SwiftUI thick material.
     @MainActor
     var thickMaterial: some ShapeStyle {
-        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *) {
-            return .thickMaterial
+        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 10.0, visionOS 1.0, *) {
+            return Material.thick
         } else {
             let opacity = 0.28
-            #if canImport(UIKit)
+            #if os(tvOS) || os(watchOS)
+            return Color.gray.opacity(opacity)
+            #elseif canImport(UIKit)
             return Color(UIColor.systemBackground).opacity(opacity)
             #elseif canImport(AppKit)
             return Color(NSColor.windowBackgroundColor).opacity(opacity)
@@ -103,11 +111,13 @@ public extension Backport where Content == Color {
     /// - Returns: A shape style approximating SwiftUI ultra-thick material.
     @MainActor
     var ultraThickMaterial: some ShapeStyle {
-        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *) {
-            return .ultraThickMaterial
+        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 10.0, visionOS 1.0, *) {
+            return Material.ultraThick
         } else {
             let opacity = 0.36
-            #if canImport(UIKit)
+            #if os(tvOS) || os(watchOS)
+            return Color.gray.opacity(opacity)
+            #elseif canImport(UIKit)
             return Color(UIColor.systemBackground).opacity(opacity)
             #elseif canImport(AppKit)
             return Color(NSColor.windowBackgroundColor).opacity(opacity)
@@ -119,14 +129,19 @@ public extension Backport where Content == Color {
 
     /// A backport namespace entry for SwiftUI's `bar` material shape style.
     ///
-    /// Uses native `.bar` material on supported OS versions. On legacy
-    /// OS versions, falls back to platform background color with `0.24` opacity.
+    /// Uses native `.bar` material on supported OS versions. On tvOS and
+    /// watchOS, where `.bar` is unavailable, falls back to ``regularMaterial``.
+    /// On legacy supported platforms, falls back to platform background color
+    /// with `0.24` opacity.
     ///
     /// - Returns: A shape style approximating SwiftUI bar material.
     @MainActor
     var bar: some ShapeStyle {
-        if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, visionOS 1.0, *) {
-            return .bar
+        #if os(tvOS) || os(watchOS)
+        return regularMaterial
+        #else
+        if #available(iOS 15.0, macOS 12.0, visionOS 1.0, *) {
+            return Material.bar
         } else {
             let opacity = 0.24
             #if canImport(UIKit)
@@ -137,5 +152,6 @@ public extension Backport where Content == Color {
             return Color.gray.opacity(opacity)
             #endif
         }
+        #endif
     }
 }
